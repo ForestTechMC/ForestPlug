@@ -1,0 +1,6 @@
+name: ForestPlug
+main: cz.forestTech.spigot.Spigot
+author: ForestTech
+version: 0.1
+api-version: 1.19
+description: Advanced plugin with addons
