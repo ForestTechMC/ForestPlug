@@ -11,8 +11,9 @@ public abstract class ForestAddon {
     }
 
     public abstract String name();
-    public abstract Plugin plugin();
     public abstract String author();
+    public abstract String version();
+    public abstract Plugin plugin();
     public abstract String describe();
 
 }

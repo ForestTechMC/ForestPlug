@@ -20,7 +20,6 @@ public class AddonManager {
         plugin = Spigot.getInstance();
         addonsList = new ArrayList<>();
         loadAddons();
-
     }
 
     public void loadAddons() {
