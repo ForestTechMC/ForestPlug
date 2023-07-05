@@ -1,4 +1,4 @@
-package cz.forestTech.shared;
+package cz.forestTech.shared.platform;
 
 public enum PlatformType {
 

@@ -1,28 +1,42 @@
 package cz.forestTech.addons;
 
-import cz.forestTech.spigot.Spigot;
 
-import java.util.List;
+import cz.forestTech.shared.platform.PlatformType;
+import cz.forestTech.spigot.TheSpigot;
+
+import java.util.HashMap;
 
 public class ForestAddonAPI {
 
-    private Spigot plugin;
 
     public ForestAddonAPI() {
-        plugin = Spigot.getInstance();
+
     }
 
 
-    public void register(ForestAddon forestAddon) {
-        plugin.getAddonManager().addAddon(forestAddon);
+    public void register(PlatformType type, ForestAddon forestAddon) {
+        switch (type) {
+            case BUNGEE:
+                break;
+            case SPIGOT:
+                TheSpigot.getInstance().getAddonManager().addAddon(forestAddon);
+                break;
+        }
+
     }
 
-    public void unRegister(ForestAddon forestAddon) {
-        plugin.getAddonManager().remove(forestAddon);
+    public void unRegister(PlatformType type, ForestAddon forestAddon) {
+        switch (type) {
+            case SPIGOT:
+                TheSpigot.getInstance().getAddonManager().addAddon(forestAddon);
+                break;
+            case BUNGEE:
+                break;
+        }
     }
 
-    public List<ForestAddon> getAddons() {
-        return plugin.getAddonManager().getAddonsList();
+    public HashMap<String, ForestAddon> getAddons() {
+        return TheSpigot.getInstance().getAddonManager().getAddonHashMap();
     }
 
 }

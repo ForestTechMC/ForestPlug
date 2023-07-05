@@ -1,0 +1,8 @@
+name: <Plugin name>
+author: <Author>
+version: VERSION
+main: <Path to main><Main class name>
+database: <true|false> (can be skipped)
+
+commands:
+  yourcmd:

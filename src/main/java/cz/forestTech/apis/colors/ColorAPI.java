@@ -1,4 +1,4 @@
-package cz.forestTech.colors;
+package cz.forestTech.apis.colors;
 
 
 import net.md_5.bungee.api.ChatColor;
@@ -147,7 +147,9 @@ public class ColorAPI {
             String text = matcher.group(1);
             matcher.appendReplacement(output, "{#" + text + "<}{#" + text + ">}");
         }
-        input = String.valueOf(output);
+        matcher.appendTail(output);
+
+        input = output.toString();
 
         matcher = patternGrad.matcher(input);
         while (matcher.find()) {

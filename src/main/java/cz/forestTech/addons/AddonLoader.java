@@ -1,30 +1,36 @@
 package cz.forestTech.addons;
 
-import cz.forestTech.spigot.Spigot;
+
+import cz.forestTech.bungee.TheBungee;
+import cz.forestTech.shared.platform.PlatformType;
+import cz.forestTech.spigot.TheSpigot;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.InvalidPluginException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginLoader;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
+public class AddonLoader {
+    private HashMap<String, ForestAddon> addonHashMap;
 
-public class AddonManager {
-    private List<ForestAddon> addonsList;
+    private TheSpigot theSpigot;
+    private TheBungee theBungee;
 
-    private Spigot plugin;
+    public AddonLoader(PlatformType type) {
+        addonHashMap = new HashMap<>();
 
-    public AddonManager() {
-        plugin = Spigot.getInstance();
-        addonsList = new ArrayList<>();
-        loadAddons();
+        switch (type) {
+            case SPIGOT -> theSpigot = TheSpigot.getInstance();
+            case BUNGEE -> theBungee = TheBungee.getInstance();
+        }
+
     }
 
     public void loadAddons() {
         PluginLoader pluginLoader = Bukkit.getPluginManager().getPlugin("ForestPlug").getPluginLoader();
-        File pluginFolder = new File(plugin.getDataFolder().getParentFile(), "ForestPlug");
+        File pluginFolder = new File(theSpigot.getDataFolder().getParentFile(), "ForestPlug");
 
         if (pluginFolder.exists() && pluginFolder.isDirectory()) {
             File[] pluginFiles = pluginFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".jar"));
@@ -37,22 +43,27 @@ public class AddonManager {
                     } catch (InvalidPluginException e) {
                         throw new RuntimeException(e);
                     }
+
+                    if (plugin.isEnabled()) {
+                        continue;
+                    }
+
                     Bukkit.getPluginManager().enablePlugin(plugin);
                 }
             }
         }
     }
 
-    public List<ForestAddon> getAddonsList() {
-        return addonsList;
-    }
-
     public void addAddon(ForestAddon addon) {
-        getAddonsList().add(addon);
+        getAddonHashMap().put(addon.name(), addon);
+        System.out.println("ADDONY: " + getAddonHashMap().size());
     }
 
     public void remove(ForestAddon addon) {
-        getAddonsList().remove(addon);
+        getAddonHashMap().remove(addon.name());
     }
 
+    public HashMap<String, ForestAddon> getAddonHashMap() {
+        return addonHashMap;
+    }
 }

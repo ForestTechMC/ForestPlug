@@ -4,7 +4,7 @@ package cz.forestTech.addons;
 import org.bukkit.plugin.Plugin;
 
 public abstract class ForestAddon {
-    protected Plugin plugin;
+    public Plugin plugin;
 
     public ForestAddon(Plugin plugin) {
         this.plugin = plugin;
@@ -15,5 +15,6 @@ public abstract class ForestAddon {
     public abstract String version();
     public abstract Plugin plugin();
     public abstract String describe();
+
 
 }
